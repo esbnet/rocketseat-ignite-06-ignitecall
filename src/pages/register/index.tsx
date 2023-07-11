@@ -1,6 +1,7 @@
 import { Button, Heading, MultiStep, Text, TextInput } from "@ignite-ui/react";
 import { ArrowRight } from "phosphor-react";
 
+import { api } from "@/lib/exios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -40,9 +41,17 @@ export default function Register() {
     }
   }, [router.query?.username, setValue]);
 
-
   async function handleRegister(data: RegisterFormData) {
     console.log(data);
+    try {
+      await api.post(`/users`, {
+        name: data.name,
+        username: data.username,
+      });
+    } catch (error) {
+      console.log(Error);
+    }
+    // await router.push("/register/schedule");
   }
 
   return (
@@ -78,7 +87,7 @@ export default function Register() {
           )}
         </label>
 
-        <Button type="submit">
+        <Button type="submit" disabled={isSubmitting}>
           Próximo passo
           <ArrowRight />
         </Button>
