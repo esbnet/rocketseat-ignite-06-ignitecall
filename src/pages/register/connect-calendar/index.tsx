@@ -52,12 +52,13 @@ export default function Register() {
           )}
         </ConnectItem>
 
-        {!hasAuthError && (
+        {hasAuthError && (
           <AuthError size="sm">
             Falha ao se conectar ao Google. Verifique se você habilitou as
             permissões de acesso ao Google Calendar.
           </AuthError>
         )}
+
         <Button type="submit" disabled={!isSignedIn}>
           Próximo passo
           <ArrowRight />
