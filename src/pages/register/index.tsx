@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { z } from "zod";
 import { Container, Form, FormAnnotation, Header } from "./styles";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterFormSchema = z.object({
   username: z
@@ -52,23 +52,14 @@ export default function Register() {
         name: data.name,
         username: data.username,
       });
+      await router.push("/register/connect-calendar");
     } catch (error) {
       if (error instanceof AxiosError && error?.response?.data?.message) {
-        toast.error(error.response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        return
+        toast.error(error.response.data.message);
+        return;
       }
       console.log(Error);
     }
-    // await router.push("/register/schedule");
   }
 
   return (
@@ -109,7 +100,18 @@ export default function Register() {
           <ArrowRight />
         </Button>
       </Form>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </Container>
   );
 }
