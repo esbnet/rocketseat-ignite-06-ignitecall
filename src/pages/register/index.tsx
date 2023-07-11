@@ -3,11 +3,15 @@ import { ArrowRight } from "phosphor-react";
 
 import { api } from "@/lib/exios";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
 import { z } from "zod";
 import { Container, Form, FormAnnotation, Header } from "./styles";
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterFormSchema = z.object({
   username: z
@@ -49,6 +53,19 @@ export default function Register() {
         username: data.username,
       });
     } catch (error) {
+      if (error instanceof AxiosError && error?.response?.data?.message) {
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return
+      }
       console.log(Error);
     }
     // await router.push("/register/schedule");
@@ -92,6 +109,7 @@ export default function Register() {
           <ArrowRight />
         </Button>
       </Form>
+      <ToastContainer />
     </Container>
   );
 }
