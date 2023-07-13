@@ -46,7 +46,6 @@ export default function Register() {
   }, [router.query?.username, setValue]);
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data);
     try {
       await api.post(`/users`, {
         name: data.name,
@@ -58,8 +57,7 @@ export default function Register() {
         toast.error(error.response.data.message);
         return;
       }
-      console.log(Error);
-    }
+      toast.error("Erro ao criar o usuário. Tente novamente.");}
   }
 
   return (

@@ -27,6 +27,7 @@ import {
 import { ToastContainer } from "react-toastify";
 
 import { api } from "@/lib/exios";
+import router from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 
 const timeIntervalsFormSchema = z.object({
@@ -100,11 +101,7 @@ export default function TimeIntervals() {
     const { intervals } = data as TimeIntervalsFormOutput;
 
     await api.post(`/users/time-intervals`, {intervals});
-    // await api.post('/users/time-intervals', {
-    //   intervals,
-    // })
-
-    // await router.push('/register/update-profile')
+    await router.push('/register/update-profile')
   }
 
   return (
