@@ -23,9 +23,9 @@ type CalendarWeeks = CalendarWeek[];
 
 interface CalendarProps {
   selectedDate: Date | null;
-  onSelectDate: (date: Date) => void;
+  onDateSelected: (date: Date) => void;
 }
-export function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
+export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs().set("date", 1);
   });
@@ -137,7 +137,7 @@ export function Calendar({ selectedDate, onSelectDate }: CalendarProps) {
                 <td key={date.toISOString()}>
                   <CalendarDay
                     disabled={disabled}
-                    onClick={() => onSelectDate(date.toDate())}
+                    onClick={() => onDateSelected(date.toDate())}
                   >
                     {date.get("date")}
                   </CalendarDay>
