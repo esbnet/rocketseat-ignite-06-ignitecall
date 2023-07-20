@@ -43,8 +43,6 @@ export default async function handler(
 
   const yearMonth = `${year}-${String(month).padStart(2, '0')}`
 
-  console.log(yearMonth)
-  
   const blockedDatesRaw: Array<{ date: number }> = await prisma.$queryRaw`
     SELECT
       EXTRACT(DAY FROM S.date) AS date,
