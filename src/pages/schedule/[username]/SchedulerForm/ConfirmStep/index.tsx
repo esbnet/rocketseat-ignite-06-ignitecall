@@ -8,9 +8,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ConfirmForm, FormActions, FormError, FormHeader } from "./styles";
 
+import { Flip, ToastContainer } from "react-toastify";
+
 const confirmFormSchema = z.object({
-  name: z.string().min(3, {message: "O nome deve ter no mínimo 3 caracteres"}),
-  email: z.string().email({message: "Digite um e-mail válido"}),
+  name: z
+    .string()
+    .min(3, { message: "O nome deve ter no mínimo 3 caracteres" }),
+  email: z.string().email({ message: "Digite um e-mail válido" }),
   observations: z.string().nullable(),
 });
 
@@ -21,7 +25,10 @@ interface ConfirmStepProps {
   onCancelConfirmation: () => void;
 }
 
-export function ConfirmStep({schedulingDate, onCancelConfirmation}: ConfirmStepProps) {
+export function ConfirmStep({
+  schedulingDate,
+  onCancelConfirmation,
+}: ConfirmStepProps) {
   const {
     register,
     handleSubmit,
@@ -30,20 +37,19 @@ export function ConfirmStep({schedulingDate, onCancelConfirmation}: ConfirmStepP
     resolver: zodResolver(confirmFormSchema),
   });
 
-  const router = useRouter()
-  const username = String(router.query.username)
+  const router = useRouter();
+  const username = String(router.query.username);
 
-  async function handleConfirmScheduling(data: ConfirmFormData) { 
-    const { name, email, observations} = data
+  async function handleConfirmScheduling(data: ConfirmFormData) {
+    const { name, email, observations } = data;
+
     await api.post(`/users/${username}/schedule`, {
       name,
       email,
       observations,
       date: schedulingDate,
-    }	);
-
-    onCancelConfirmation();
-    // await router.push(`/schedule/schedule/${username}`)
+    }),
+      onCancelConfirmation();
   }
 
   const describeDate = dayjs(schedulingDate).format("DD[ de ] MMMM[ de ] YYYY");
@@ -66,7 +72,7 @@ export function ConfirmStep({schedulingDate, onCancelConfirmation}: ConfirmStepP
         <Text size="sm">Nome completo</Text>
         <TextInput placeholder="Seu nome" {...register("name")} />
         {errors.name && (
-          <FormError size={'sm'} >{errors.name.message}</FormError>
+          <FormError size={"sm"}>{errors.name.message}</FormError>
         )}
       </label>
 
@@ -78,7 +84,7 @@ export function ConfirmStep({schedulingDate, onCancelConfirmation}: ConfirmStepP
           {...register("email")}
         />
         {errors.email && (
-          <FormError size={'sm'} >{errors.email.message}</FormError>
+          <FormError size={"sm"}>{errors.email.message}</FormError>
         )}
       </label>
 
@@ -95,6 +101,7 @@ export function ConfirmStep({schedulingDate, onCancelConfirmation}: ConfirmStepP
           Confirmar
         </Button>
       </FormActions>
+      <ToastContainer transition={Flip} />
     </ConfirmForm>
   );
 }

@@ -27,6 +27,7 @@ import {
 import { ToastContainer } from "react-toastify";
 
 import { api } from "@/lib/exios";
+import { NextSeo } from "next-seo";
 import router from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -105,6 +106,12 @@ export default function TimeIntervals() {
   }
 
   return (
+    <>
+    <NextSeo
+      title="Selecione sua disponibilidade | @esbdev Call"
+      noindex
+    />
+
     <Container>
       <Header>
         <Heading as="strong">Quase lá</Heading>
@@ -183,5 +190,6 @@ export default function TimeIntervals() {
       {/* Same as */}
       <ToastContainer />
     </Container>
+    </>
   );
 }
