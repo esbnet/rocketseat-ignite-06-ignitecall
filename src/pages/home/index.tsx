@@ -4,7 +4,7 @@ import { Container, Hero, Preview } from "./styles";
 
 import { NextSeo } from 'next-seo';
 import previewImage from "../../assets/app-preview.png";
-import { ClaimUsernameForm } from "./components/ClaimUserName";
+import ClaimUsernameForm from "./components/ClaimUserName";
 
 export default function Home() {
   return (
