@@ -12,7 +12,7 @@ export default async function handler(
 
   const { name, username } = req.body
 
-  const userAlreadyExists = await prisma.user.findUnique({
+  const userAlreadyExists = await prisma.user.findFirst({
     where: {
       username
     }

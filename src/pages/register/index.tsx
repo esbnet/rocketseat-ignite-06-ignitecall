@@ -84,7 +84,7 @@ export default function Register() {
           <label>
             <Text size="sm">Nome de usuário</Text>
             <TextInput
-              prefix="ignite.com/"
+              prefix="esbdev.com/"
               placeholder="seu-usuário"
               {...register("username")}
             />
